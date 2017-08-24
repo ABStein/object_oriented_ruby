@@ -1,10 +1,7 @@
-class Car
-  def initialize(input_options)
+class Vehicle
+  def initialize
     @speed = 0
     @direction = 'north'
-    @fuel = 'premium'
-    @make = 'Honda'
-    @model = 'Accord'
   end
 
   def brake
@@ -17,6 +14,16 @@ class Car
 
   def turn(new_direction)
     @direction = new_direction
+  end
+end
+
+class Car < Vehicle
+  attr_reader :fuel, :make, :model
+  def initialize(input_options)
+  super() 
+  @fuel = input_options[:fuel] 
+  @make = input_options[:make]
+  @model = input_options[:model]
   end
 
   def honk_horn
@@ -24,39 +31,24 @@ class Car
   end
 end
 
-class Bike
-  def initialize(input_options) 
-    super
-    @bike = input_options[:bike]
-    @weight = '30 lbs'
-    @make = 'schwinn'
-    @model = 'swift'
-    @fuel = 'none'
-  end
-
-  def brake
-    @speed = 0
-  end
-
-  def accelerate
-    @speed += 10
-  end
-
-  def turn(new_direction)
-    @direction = new_direction
-  end
-
+class Bike < Vehicle
   def ring_bell
     puts "Ring ring!"
   end
 end
 
-bike = Bike.new(
-  weight: "40 lbs",
-  make: "schwinn",
-  model: "swift",
-  fuel: "none"
-) 
-# car = Car.new 
+# car = Car.new()
+bike = Bike.new
 
-p bike.fuel
+# car.honk_horn
+bike.ring_bell
+
+p bike
+bike.turn('North by North-West')
+car = Car.new(
+    make: "Toyota",
+    model: "Camry",
+    fuel: "regular"
+) 
+
+p car.make
